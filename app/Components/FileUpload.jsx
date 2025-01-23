@@ -1,27 +1,52 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
+import * as XLSX from "xlsx";
 
 function FileUpload() {
-  // State to track if a file is selected
+  const [fileDetails, setFileDetails] = useState(null);
+  const [userPrompt, setUserPrompt] = useState('');
+  const [response, setResponse] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [excelData, setExcelData] = useState('');
   const [fileSelected, setFileSelected] = useState(false);
-  const [fileDetails, setFileDetails] = useState({
-    name: '',
-    size: '',
-    type: ''
-  });
 
-  // Handle file change
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+  // Handle file change and parse the Excel file
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
     if (file) {
-      setFileSelected(true);
       setFileDetails({
         name: file.name,
-        size: (file.size / 1024).toFixed(2) + ' KB',
+        size: file.size,
         type: file.type,
       });
+      setFileSelected(true);
+  
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const data = e.target.result;
+        const workbook = XLSX.read(data, { type: "array" });
+  
+        //the first sheet in excel file should be the first one
+        const sheet = workbook.Sheets[workbook.SheetNames[0]];
+        const jsonData = XLSX.utils.sheet_to_json(sheet);
+  
+        // storing output for api
+        setExcelData(JSON.stringify(jsonData, null, 2));
+      };
+  
+      reader.readAsArrayBuffer(file); // =
     }
+  };
+
+  const handlePromptChange = (e) => {
+    setUserPrompt(e.target.value);
+  };
+
+  //handling the submit for api
+  const handleSubmit = () => {
+    setLoading(true);
+    setLoading(false);
   };
 
   return (
@@ -79,7 +104,7 @@ function FileUpload() {
               {/* Response Section */}
               <div className="mt-6 p-4 bg-gray-50 border rounded-lg shadow-md">
                 <h3 className="font-semibold text-xl mb-2">Response:</h3>
-                <pre className="text-gray-800 w-full text-wrap">sample response</pre>
+                <pre className="text-gray-800 w-full text-wrap">{response || "sample response"}</pre>
               </div>
             </div>
           </>
@@ -99,13 +124,19 @@ function FileUpload() {
             <input
               type="text"
               id="prompt"
+              value={userPrompt}
+              onChange={handlePromptChange}
               placeholder="Type something..."
               className="w-full p-3 mt-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
           </div>
 
-          <button className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-blue-300">
-            Submit
+          <button
+            className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-blue-300"
+            onClick={handleSubmit}
+            disabled={loading}
+          >
+            {loading ? "Processing..." : "Submit"}
           </button>
         </div>
       )}
