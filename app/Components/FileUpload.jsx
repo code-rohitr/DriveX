@@ -44,8 +44,36 @@ function FileUpload() {
   };
 
   //handling the submit for api
-  const handleSubmit = () => {
+  async function handleSubmit() {
     setLoading(true);
+    if (!excelData || !userPrompt) return;
+
+    setLoading(true);
+
+    try {
+      const res = await fetch('/api/openai', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fileDetails,
+          excelData, // Sending the extracted data from the Excel file
+          userPrompt,
+        }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        setResponse(data.reply);
+      } else {
+        setResponse('Error: ' + data.error);
+      }
+    } catch (error) {
+      setResponse('An error occurred while communicating with OpenAI.');
+    } finally {
+      setLoading(false);
+    }
     setLoading(false);
   };
 
@@ -104,7 +132,7 @@ function FileUpload() {
               {/* Response Section */}
               <div className="mt-6 p-4 bg-gray-50 border rounded-lg shadow-md">
                 <h3 className="font-semibold text-xl mb-2">Response:</h3>
-                <pre className="text-gray-800 w-full text-wrap">{response || "sample response"}</pre>
+                <pre className="text-gray-800 w-full text-wrap">{response}</pre>
               </div>
             </div>
           </>
