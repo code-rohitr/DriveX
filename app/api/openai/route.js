@@ -10,17 +10,22 @@ export async function POST(req) {
     const { fileDetails, excelData, userPrompt } = await req.json();
 
     // Build the prompt by including the Excel data
+    // Adding additional instructions 
     const prompt = `
       Extracted Excel Data: ${excelData}
 
       User Prompt: ${userPrompt}
       
       Please respond based on the provided Excel data and the user prompt.
+      Format the data properly. leave one line gap between each heading.
+      use tables put margin of black color for each of the table rows.
+      Each column should be aligned with the ones above and below it.
+      always show the data of excel file in table format.
+      fill empty cells with "-".
     `;
 
-    // Call the OpenAI API with the composed prompt
     const response = await openai.chat.completions.create({
-      model: 'gpt-4', // You can switch to 'gpt-4' if you have access
+      model: 'gpt-4',
       messages: [{ role: 'user', content: prompt }],
     });
 
