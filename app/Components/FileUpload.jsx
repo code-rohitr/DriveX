@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import * as XLSX from "xlsx";
 import { motion } from "framer-motion";
+import { LampContainer } from "../aceternity/lamp";
+import { TextHoverEffect } from "../aceternity/text-hover-effect";
 
 function FileUpload() {
   const [fileDetails, setFileDetails] = useState(null);
@@ -126,7 +128,9 @@ function FileUpload() {
                 </p>
               </label>
 
-              <h1>Analyze your files with GPT-4</h1>
+              <div>
+              <TextHoverEffect text="GPT-4" />
+              </div>
             </motion.div>
           ) : (
             <>

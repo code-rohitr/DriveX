@@ -5,6 +5,7 @@ import { ExcelService } from "../../services/excel";
 import { GeminiService } from "../../services/gemini";
 import { Chat } from "./Chat";
 import { motion } from "framer-motion";
+import { TextHoverEffect } from "@/app/aceternity/text-hover-effect";
 
 const ErrorBoundary = ({ children }) => {
   const [hasError, setHasError] = useState(false);
@@ -162,15 +163,19 @@ export default function Gemini() {
                   Only .xlsx or .xls files are allowed.
                 </p>
               </label>
+              <div>
+                <TextHoverEffect text="Gemini" />
+              </div>
             </motion.div>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 h-full">
               <div className="lg:col-span-1 w-3/3">
                 <motion.div
-                initial={{opacity: 0}}
-                animate={{opacity: 1}}
-                transition={{duration: 0.5}}
-                className="bg-slate-800 p-6 rounded-lg shadow text-white">
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                  className="bg-slate-800 p-6 rounded-lg shadow text-white"
+                >
                   <h2 className="text-lg font-semibold mb-4">
                     Current Document
                   </h2>

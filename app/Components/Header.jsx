@@ -17,14 +17,14 @@ function Header({ onModelChange }) {
       initial={{y: -50, opacity: 0}}
       animate={{y: 0, opacity: 1}}
       transition={{duration: 0.5}}
-        className={`w-9/12 mx-auto flex items-center justify-between h-[15vh]`}
+        className={`w-9/12 mx-auto flex items-center justify-between h-[15vh] max-sm:h-[25vh]`}
       >
-        <div className="flex justify-between items-center w-full">
-          <div>
+        <div className="flex justify-between items-center w-full max-sm:flex-col">
+          <div className="max-sm: mb-5">
             <h1 className="text-3xl font-bold text-center">
               File Upload and User Prompt
             </h1>
-            <p className="text-slate-300">Upload your file and proceed to chat.</p>
+            <p className="text-slate-300 max-sm:text-center">Upload your file and proceed to chat.</p>
           </div>
 
           <div>
