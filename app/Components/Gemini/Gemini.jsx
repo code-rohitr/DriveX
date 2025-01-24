@@ -67,11 +67,6 @@ export default function Gemini() {
   return (
     <ErrorBoundary>
       <div className="min-h-screen bg-gray-50">
-        <header className="bg-white shadow">
-          <div className="max-w-7xl mx-auto px-4 py-6">
-            <h1 className="text-2xl font-bold text-gray-900">Excel Q&A Assistant</h1>
-          </div>
-        </header>
 
         <main className="max-w-7xl mx-auto px-4 py-8">
           {error && (
