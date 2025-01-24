@@ -35,6 +35,17 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
+# Features
+
+- **File Upload & Analysis**: Users can upload **XLSX files** (Excel spreadsheets), which are then processed and analyzed using the selected LLM (GPT-4 or Gemini). The content of the file, including data, columns, and sheets, is extracted and summarized for the user.
+  
+- **Two Methods of Chat**:
+  - **GPT-4**: Uses a **single-answer approach** to respond to user queries. The user submits a question, and GPT-4 provides a comprehensive, single response, ideal for quick insights or concise answers.
+  - **Gemini**: Implements a **chat-based Q&A** format. Users can engage in a back-and-forth conversation, asking multiple questions, and receiving contextually aware responses that build on previous interactions. This method is suitable for more detailed and interactive dialogues.
+
+With these features, users can easily analyze Excel data and interact with two of the most advanced LLMs available, tailored to their preferences.
+
+
 ### The app demonstrates the integration of two LLMs: GPT-4 and Gemini
 
 This project integrates two powerful language models, **GPT-4** from OpenAI and **Gemini** from Google. These models allow the application to perform advanced natural language processing tasks, such as document summarization, question answering, and content generation.
