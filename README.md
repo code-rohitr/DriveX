@@ -86,6 +86,9 @@ Follow these steps to upload and interact with the AI using an `.xlsx` file.
 4. **Start the Conversation:**
    - After the file upload, you can chat with the AI about the contents of the document.
 
+5. **Please wait if it loads:**
+   - Depending upon the internet speed and other factors, the app might take longer than usual to return a response, Kindly be patient and allow to generate the response. If the response fails, resend the the prompt.
+
 ---
 
 ## Folder Structure
