@@ -173,7 +173,7 @@ function FileUpload() {
         {fileSelected && (
           <div className="fixed bottom-0 left-[50%] translate-x-[-50%] w-9/12">
             <div className=" py-4 rounded-lg grid grid-cols-6 justify-content-end">
-              <div className=" w-full col-span-4 col-start-2">
+              <div className=" w-full col-span-4 max-sm:col-span-4 col-start-2">
                 <input
                   type="text"
                   id="prompt"
@@ -185,7 +185,7 @@ function FileUpload() {
               </div>
 
               <button
-                className="w-auto col-span-1 col-start-6 py-3 px-5 bg-blue-500 transition-colors text-white rounded-l-none border border-blue-600 font-semibold rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-blue-300"
+                className="w-auto col-span-1 max-sm:col-span-2 col-start-6 py-3 px-5 bg-blue-500 transition-colors text-white rounded-l-none border border-blue-600 font-semibold rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-blue-300"
                 onClick={handleSubmit}
                 disabled={loading}
               >

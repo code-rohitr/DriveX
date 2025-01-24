@@ -123,7 +123,7 @@ export default function Gemini() {
 
   return (
     <div className="bg-slate-900">
-      <div className="h-[85vh] w-9/12 mx-auto bg-slate-900">
+      <div className="h-[85vh] w-9/12 max-sm:w-full mx-auto bg-slate-900">
         <main className="w-full h-full mx-auto px-4 py-8">
           {!document ? (
             <motion.div
