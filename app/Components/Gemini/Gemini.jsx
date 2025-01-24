@@ -4,10 +4,6 @@ import React, { useState, useEffect } from 'react';
 
 import { Chat } from '../Gemini/Chat';
 
-// Error Boundary as a Functional Component
-const ErrorBoundary = ({ children }) => {
-  return <>{children}</>;
-};
 
 const generateId = () => `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
@@ -65,7 +61,6 @@ export default function Gemini() {
   };
 
   return (
-    <ErrorBoundary>
       <div className="min-h-screen bg-gray-50">
 
         <main className="max-w-7xl mx-auto px-4 py-8">
@@ -112,6 +107,5 @@ export default function Gemini() {
           )}
         </main>
       </div>
-    </ErrorBoundary>
   );
 }
