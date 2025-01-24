@@ -1,32 +1,39 @@
-import React, { useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
-import { clsx } from 'clsx';
+import React, { useCallback } from "react";
+import { useDropzone } from "react-dropzone";
+import { clsx } from "clsx";
 
 export function FileUpload({ onFileProcess }) {
-  const onDrop = useCallback(async (acceptedFiles) => {
-    const file = acceptedFiles[0];
-    if (!file) return;
+  const onDrop = useCallback(
+    async (acceptedFiles) => {
+      const file = acceptedFiles[0];
+      if (!file) return;
 
-    if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) {
-      onFileProcess(file);
-    }
-  }, [onFileProcess]);
+      if (file.name.endsWith(".xlsx") || file.name.endsWith(".xls")) {
+        onFileProcess(file);
+      }
+    },
+    [onFileProcess]
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'],
-      'application/vnd.ms-excel': ['.xls']
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [
+        ".xlsx",
+      ],
+      "application/vnd.ms-excel": [".xls"],
     },
-    maxFiles: 1
+    maxFiles: 1,
   });
 
   return (
     <div
       {...getRootProps()}
       className={clsx(
-        'border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors',
-        isDragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-blue-400'
+        "border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors",
+        isDragActive
+          ? "border-blue-500 bg-blue-50"
+          : "border-gray-300 hover:border-blue-400"
       )}
     >
       <input {...getInputProps()} />

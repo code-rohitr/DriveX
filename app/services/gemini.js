@@ -21,6 +21,7 @@ export async function GeminiService(content, question) {
       - Focused on answering the question with as much accuracy as possible.
       - Well-organized with headings or bullet points if needed.
       - Break down the answer logically if there are multiple parts to it.
+      - leave a margin above every heading or new point.
 
       Please provide your response in a well-formatted way.`;
 

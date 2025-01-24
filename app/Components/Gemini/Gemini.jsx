@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { ExcelService } from '../../services/excel';
-import { GeminiService } from '../../services/gemini';
-import { Chat } from './Chat';
+import React, { useState, useEffect } from "react";
+import { ExcelService } from "../../services/excel";
+import { GeminiService } from "../../services/gemini";
+import { Chat } from "./Chat";
 
 const ErrorBoundary = ({ children }) => {
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     if (hasError) {
-      console.error('An error occurred in the component tree.');
+      console.error("An error occurred in the component tree.");
     }
   }, [hasError]);
 
@@ -28,7 +28,8 @@ const ErrorBoundary = ({ children }) => {
   return <>{children}</>;
 };
 
-const generateId = () => `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+const generateId = () =>
+  `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
 export default function Gemini() {
   const [document, setDocument] = useState(null);
@@ -47,7 +48,8 @@ export default function Gemini() {
       setError(null);
 
       // Process the Excel file
-      const { content, data, columns, sheets } = await ExcelService.processExcel(file);
+      const { content, data, columns, sheets } =
+        await ExcelService.processExcel(file);
 
       // Update the document state
       setDocument({
@@ -57,7 +59,7 @@ export default function Gemini() {
         type: file.type,
         data,
         columns,
-        sheets
+        sheets,
       });
 
       const summary = await GeminiService(
@@ -65,15 +67,17 @@ export default function Gemini() {
         "Provide a brief summary of this Excel file's contents. Include the number of sheets, total rows, and key information found in the data."
       );
 
-      setMessages([{
-        id: generateId(),
-        content: summary.content,
-        role: 'assistant',
-        timestamp: new Date(),
-      }]);
+      setMessages([
+        {
+          id: generateId(),
+          content: summary.content,
+          role: "assistant",
+          timestamp: new Date(),
+        },
+      ]);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to process file');
-      console.error('File Processing Error:', err);
+      setError(err instanceof Error ? err.message : "Failed to process file");
+      console.error("File Processing Error:", err);
     } finally {
       setIsProcessing(false);
     }
@@ -85,7 +89,7 @@ export default function Gemini() {
     const newMessage = {
       id: generateId(),
       content,
-      role: 'user',
+      role: "user",
       timestamp: new Date(),
     };
 
@@ -99,53 +103,75 @@ export default function Gemini() {
       const aiResponse = {
         id: generateId(),
         content: response.content,
-        role: 'assistant',
+        role: "assistant",
         timestamp: new Date(),
-        visualization: response.visualization
+        visualization: response.visualization,
       };
 
       setMessages((prev) => [...prev, aiResponse]);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to process question');
-      console.error('Question Processing Error:', err);
+      setError(
+        err instanceof Error ? err.message : "Failed to process question"
+      );
+      console.error("Question Processing Error:", err);
     } finally {
       setIsProcessing(false);
     }
   };
 
   return (
-    <ErrorBoundary>
-      <div className="min-h-screen bg-gray-50">
-        <main className="max-w-7xl mx-auto px-4 py-8">
-          {error && (
-            <div className="mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
-              {error}
-            </div>
-          )}
-
+    <div className="bg-slate-900">
+      <div className="h-[85vh] w-9/12 mx-auto bg-slate-900">
+        <main className="w-full h-full mx-auto px-4 py-8">
           {!document ? (
             <div className="max-w-xl mx-auto">
-              <h2 className="text-xl font-semibold mb-4">Upload your Excel file</h2>
               <input
                 type="file"
                 accept=".xlsx, .xls"
                 onChange={handleFileProcess}
-                className="border px-4 py-2 rounded-md cursor-pointer"
+                className="hidden"
+                id="file-upload"
               />
+
+              <label
+                htmlFor="file-upload"
+                className="bg-slate-700 text-white font-semibold p-10 text-base rounded max-w-72 h-52 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-300 border-dashed mx-auto font-[sans-serif] hover:border-blue-500 transition duration-300"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-16 mb-2 fill-white hover:fill-blue-500 transition duration-300"
+                  viewBox="0 0 32 32"
+                >
+                  <path
+                    d="M23.75 11.044a7.99 7.99 0 0 0-15.5-.009A8 8 0 0 0 9 27h3a1 1 0 0 0 0-2H9a6 6 0 0 1-.035-12 1.038 1.038 0 0 0 1.1-.854 5.991 5.991 0 0 1 11.862 0A1.08 1.08 0 0 0 23 13a6 6 0 0 1 0 12h-3a1 1 0 0 0 0 2h3a8 8 0 0 0 .75-15.956z"
+                    data-original="#000000"
+                  />
+                  <path
+                    d="M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z"
+                    data-original="#000000"
+                  />
+                </svg>
+                Upload file
+                <p className="text-xs font-medium text-gray-200 mt-2">
+                  Only .xlsx or .xls files are allowed.
+                </p>
+              </label>
             </div>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <div className="lg:col-span-1">
-                <div className="bg-white p-6 rounded-lg shadow">
-                  <h2 className="text-lg font-semibold mb-4">Current Document</h2>
+            <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 h-full">
+              <div className="lg:col-span-1 w-3/3">
+                <div className="bg-slate-800 p-6 rounded-lg shadow text-white">
+                  <h2 className="text-lg font-semibold mb-4">
+                    Current Document
+                  </h2>
                   <div className="space-y-4">
                     <div>
                       <p className="font-medium">File Name:</p>
-                      <p className="text-gray-600">{document.name}</p>
+                      <p className="text-slate-300">{document.name}</p>
                     </div>
                     <div>
                       <p className="font-medium">Sheets:</p>
-                      <ul className="list-disc list-inside text-gray-600">
+                      <ul className="list-disc list-inside text-slate-300">
                         {document.sheets?.map((sheet) => (
                           <li key={sheet.name}>
                             {sheet.name} ({sheet.data.length} rows)
@@ -155,14 +181,15 @@ export default function Gemini() {
                     </div>
                     <div>
                       <p className="font-medium">Total Columns:</p>
-                      <p className="text-gray-600">{document.columns.length}</p>
+                      <p className="text-slate-300">{document.columns.length}</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="lg:col-span-2">
-                <div className="bg-white rounded-lg shadow p-6">
+              {/* message sent by the user */}
+              <div className="lg:col-span-5 max-h-full">
+                <div className="bg-slate-900 h-[80vh] max-h-full  overflow-scroll rounded-lg shadow">
                   <Chat
                     messages={messages}
                     onSendMessage={handleSendMessage}
@@ -174,6 +201,6 @@ export default function Gemini() {
           )}
         </main>
       </div>
-    </ErrorBoundary>
+    </div>
   );
 }

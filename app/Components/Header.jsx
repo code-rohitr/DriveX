@@ -7,25 +7,27 @@ function Header({ onModelChange }) {
 
   const handleModelChange = (event) => {
     setSelectedModel(event.target.value);
-    onModelChange(event.target.value); 
+    onModelChange(event.target.value);
   };
 
   return (
-    <div className="bg-white border dark:bg-slate-900">
-      <div className={`w-6/12 mx-auto flex items-center justify-between h-[10vh]`}>
+    <div className="bg-slate-900 text-white">
+      <div
+        className={`w-9/12 mx-auto flex items-center justify-between h-[15vh]`}
+      >
         <div className="flex justify-between items-center w-full">
           <div>
             <h1 className="text-3xl font-bold text-center">
               File Upload and User Prompt
             </h1>
-            <p>Upload your file and proceed to chat.</p>
+            <p className="text-slate-300">Upload your file and proceed to chat.</p>
           </div>
 
           <div>
             <select
               value={selectedModel}
               onChange={handleModelChange}
-              className="p-2 px-10 rounded-md border border-gray-300 text-gray-700"
+              className="p-2 px-10 rounded-md border bg-blue-600 border-blue-500 text-white  outline-none cursor-pointer"
             >
               <option value="GPT-4">GPT-4</option>
               <option value="Gemini">Gemini</option>
