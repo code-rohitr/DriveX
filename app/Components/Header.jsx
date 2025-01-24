@@ -2,9 +2,11 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import {FaGithub, FaLinkedin} from 'react-icons/fa'
+import Link from "next/link";
 
 function Header({ onModelChange }) {
-  const [selectedModel, setSelectedModel] = useState("GPT-4");
+  const [selectedModel, setSelectedModel] = useState("Gemini");
 
   const handleModelChange = (event) => {
     setSelectedModel(event.target.value);
@@ -27,14 +29,20 @@ function Header({ onModelChange }) {
             <p className="text-slate-300 max-sm:text-center">Upload your file and proceed to chat.</p>
           </div>
 
-          <div>
+          <div className="flex justify-center items-center space-x-10">
+          <Link href={"https://www.linkedin.com/in/rohit-raj-3abb13201/"} target="_blank" className="text-3xl">
+            <FaLinkedin/>
+          </Link>
+          <Link href={"https://github.com/code-rohitr"} target="_blank" className="text-3xl">
+            <FaGithub/>
+          </Link>
             <select
               value={selectedModel}
               onChange={handleModelChange}
               className="p-2 px-10 rounded-md border bg-blue-600 border-blue-500 text-white  outline-none cursor-pointer"
             >
-              <option value="GPT-4">GPT-4</option>
               <option value="Gemini">Gemini</option>
+              <option value="GPT-4">GPT-4</option>
             </select>
           </div>
         </div>

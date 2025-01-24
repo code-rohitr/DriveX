@@ -7,7 +7,7 @@ import Gemini from "./Components/Gemini/Gemini";
 
 
 export default function Home() {
-  const [selectedModel, setSelectedModel] = useState("GPT-4");
+  const [selectedModel, setSelectedModel] = useState("Gemini");
 
   // Function to handle model change
   const handleModelChange = (model) => {
@@ -19,8 +19,8 @@ export default function Home() {
       <Header onModelChange={handleModelChange} />
 
       <div className="">
-        {selectedModel === "GPT-4" && <FileUpload />}
         {selectedModel === "Gemini" && <Gemini />}
+        {selectedModel === "GPT-4" && <FileUpload />}
       </div>
 
       {/* Render FileUpload component */}
