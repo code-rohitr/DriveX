@@ -129,7 +129,7 @@ export default function Gemini() {
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5 }}
-              className="max-w-xl mx-auto"
+              className="max-w-full mx-auto flex-col items-center justify-start"
             >
               <input
                 type="file"
@@ -141,7 +141,7 @@ export default function Gemini() {
 
               <label
                 htmlFor="file-upload"
-                className="bg-slate-700 text-white font-semibold p-10 text-base rounded max-w-72 h-52 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-300 border-dashed mx-auto font-[sans-serif] hover:border-blue-500 transition duration-300"
+                className="bg-slate-700 text-white font-semibold p-10 text-base rounded min-w-full h-52 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-300 border-dashed mx-auto font-[sans-serif] hover:border-blue-500 transition duration-300"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

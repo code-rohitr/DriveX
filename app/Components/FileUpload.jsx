@@ -94,7 +94,7 @@ function FileUpload() {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="flex justify-center items-start h-full w-full"
+              className="flex-col justify-center items-start h-full w-full"
             >
               <input
                 type="file"
@@ -125,6 +125,8 @@ function FileUpload() {
                   Only .xlsx or .xls files are allowed.
                 </p>
               </label>
+
+              <h1>Analyze your files with GPT-4</h1>
             </motion.div>
           ) : (
             <>
