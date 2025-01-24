@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 function Header({ onModelChange }) {
   const [selectedModel, setSelectedModel] = useState("GPT-4");
@@ -11,8 +12,11 @@ function Header({ onModelChange }) {
   };
 
   return (
-    <div className="bg-slate-900 text-white">
-      <div
+    <motion.div className="bg-slate-900 text-white">
+      <motion.div
+      initial={{y: -50, opacity: 0}}
+      animate={{y: 0, opacity: 1}}
+      transition={{duration: 0.5}}
         className={`w-9/12 mx-auto flex items-center justify-between h-[15vh]`}
       >
         <div className="flex justify-between items-center w-full">
@@ -34,8 +38,8 @@ function Header({ onModelChange }) {
             </select>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
 

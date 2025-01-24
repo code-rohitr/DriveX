@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { ExcelService } from "../../services/excel";
 import { GeminiService } from "../../services/gemini";
 import { Chat } from "./Chat";
+import { motion } from "framer-motion";
 
 const ErrorBoundary = ({ children }) => {
   const [hasError, setHasError] = useState(false);
@@ -124,7 +125,12 @@ export default function Gemini() {
       <div className="h-[85vh] w-9/12 mx-auto bg-slate-900">
         <main className="w-full h-full mx-auto px-4 py-8">
           {!document ? (
-            <div className="max-w-xl mx-auto">
+            <motion.div
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="max-w-xl mx-auto"
+            >
               <input
                 type="file"
                 accept=".xlsx, .xls"
@@ -156,11 +162,15 @@ export default function Gemini() {
                   Only .xlsx or .xls files are allowed.
                 </p>
               </label>
-            </div>
+            </motion.div>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 h-full">
               <div className="lg:col-span-1 w-3/3">
-                <div className="bg-slate-800 p-6 rounded-lg shadow text-white">
+                <motion.div
+                initial={{opacity: 0}}
+                animate={{opacity: 1}}
+                transition={{duration: 0.5}}
+                className="bg-slate-800 p-6 rounded-lg shadow text-white">
                   <h2 className="text-lg font-semibold mb-4">
                     Current Document
                   </h2>
@@ -181,10 +191,12 @@ export default function Gemini() {
                     </div>
                     <div>
                       <p className="font-medium">Total Columns:</p>
-                      <p className="text-slate-300">{document.columns.length}</p>
+                      <p className="text-slate-300">
+                        {document.columns.length}
+                      </p>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               </div>
 
               {/* message sent by the user */}

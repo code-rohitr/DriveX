@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { clsx } from 'clsx';
 import { marked } from 'marked';
+import {motion} from 'framer-motion'
 
 const parseMarkdown = (content) => {
   if (!content) return '';
@@ -27,7 +28,10 @@ export function Chat({ messages, onSendMessage, isProcessing }) {
     <div className="flex flex-col h-full overflow-auto ">
       <div className="flex-1 overflow-y-auto pb-4 h-full overflow-auto">
         {messages.map((message) => (
-          <div
+          <motion.div
+            initial={{opacity: 0, y: 10}}
+            animate={{opacity: 1, y: 0}}
+            transition={{duration: 0.5}}
             key={message.id}
             className={clsx(
               'flex flex-col',
@@ -49,14 +53,8 @@ export function Chat({ messages, onSendMessage, isProcessing }) {
                 }}
               />
             </div>
-            {message.visualization && (
-              <div className="w-full mt-4">
-                <h3 className="text-lg font-semibold mb-2">
-                  {message.visualization.title}
-                </h3>
-              </div>
-            )}
-          </div>
+           
+          </motion.div>
         ))}
       </div>
 

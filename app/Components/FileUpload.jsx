@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import * as XLSX from "xlsx";
+import { motion } from "framer-motion";
 
 function FileUpload() {
   const [fileDetails, setFileDetails] = useState(null);
@@ -89,7 +90,12 @@ function FileUpload() {
         <div className="flex-1 overflow-auto px-0  bg-slate-900 h-auto rounded-md max-h-full dark:bg-slate-900">
           {/* Show Choose File button or the rest of the components */}
           {!fileSelected ? (
-            <div className="flex justify-center items-start h-full w-full">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="flex justify-center items-start h-full w-full"
+            >
               <input
                 type="file"
                 onChange={handleFileChange}
@@ -119,12 +125,17 @@ function FileUpload() {
                   Only .xlsx or .xls files are allowed.
                 </p>
               </label>
-            </div>
+            </motion.div>
           ) : (
             <>
               {/* File details */}
               <div className="grid grid-cols-1 lg:grid-cols-6 gap-8">
-                <div className="py-4 px-4 rounded-lg bg-slate-800 h-24">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                  className="py-4 px-4 rounded-lg bg-slate-800 h-24"
+                >
                   <ul className="space-y-2 flex-col justify-start items-start text-white">
                     <li>
                       <strong>Name:</strong> {fileDetails.name}
@@ -133,15 +144,20 @@ function FileUpload() {
                       <strong>Size:</strong> {fileDetails.size} Bytes
                     </li>
                   </ul>
-                </div>
+                </motion.div>
 
                 {/* Response Section */}
-                <div className="p-4 col-span-5 bg-slate-800 rounded-lg dark:bg-slate-800 text-white">
-                  <h3 className="font-semibold text-xl mb-2 text-green-400">Response:</h3>
-                  <pre className="text-white w-full text-wrap">
-                    {response}
-                  </pre>
-                </div>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                  className="p-4 col-span-5 bg-slate-800 rounded-lg dark:bg-slate-800 text-white"
+                >
+                  <h3 className="font-semibold text-xl mb-2 text-green-400">
+                    Response:
+                  </h3>
+                  <pre className="text-white w-full text-wrap">{response}</pre>
+                </motion.div>
               </div>
             </>
           )}
@@ -149,25 +165,27 @@ function FileUpload() {
 
         {/* Prompt input and Submit button fixed at the bottom (only shown after file is uploaded) */}
         {fileSelected && (
-          <div className="fixed bottom-0 left-[50%] translate-x-[-50%] w-9/12 py-4 rounded-lg flex justify-center items-center">
-            <div className=" w-full ">
-              <input
-                type="text"
-                id="prompt"
-                value={userPrompt}
-                onChange={handlePromptChange}
-                placeholder="Enter your prompt here"
-                className="w-full p-3 rounded-r-none border border-slate-500 border-r-0 text-white outline-none bg-slate-600 rounded-md shadow-sm focus:ring-2 focus:border-blue-500"
-              />
-            </div>
+          <div className="fixed bottom-0 left-[50%] translate-x-[-50%] w-9/12">
+            <div className=" py-4 rounded-lg grid grid-cols-6 justify-content-end">
+              <div className=" w-full col-span-4 col-start-2">
+                <input
+                  type="text"
+                  id="prompt"
+                  value={userPrompt}
+                  onChange={handlePromptChange}
+                  placeholder="Enter your prompt here"
+                  className="w-full p-3 rounded-r-none border border-slate-500 border-r-0 text-white outline-none bg-slate-600 rounded-md shadow-sm focus:ring-2 focus:border-blue-500"
+                />
+              </div>
 
-            <button
-              className="w-auto py-3 px-5 bg-blue-500 transition-colors text-white rounded-l-none border border-blue-600 font-semibold rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-blue-300"
-              onClick={handleSubmit}
-              disabled={loading}
-            >
-              {loading ? "Processing..." : "Send"}
-            </button>
+              <button
+                className="w-auto col-span-1 col-start-6 py-3 px-5 bg-blue-500 transition-colors text-white rounded-l-none border border-blue-600 font-semibold rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-blue-300"
+                onClick={handleSubmit}
+                disabled={loading}
+              >
+                {loading ? "Processing..." : "Send"}
+              </button>
+            </div>
           </div>
         )}
 
