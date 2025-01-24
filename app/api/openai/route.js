@@ -21,7 +21,8 @@ export async function POST(req) {
       use tables put margin of black color for each of the table rows.
       Each column should be aligned with the ones above and below it.
       always show the data of excel file in table format.
-      fill empty cells with "-".
+      fill empty cells with -.
+      include proper line breaks to show tables.
     `;
 
     const response = await openai.chat.completions.create({
